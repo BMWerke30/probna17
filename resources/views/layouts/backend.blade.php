@@ -31,7 +31,7 @@
 
 
         <script>
-        var base_url = '{{ url('/admin') }}'; <?php?>
+        var base_url = '{{ url('/admin') }}'; 
 
 
 
