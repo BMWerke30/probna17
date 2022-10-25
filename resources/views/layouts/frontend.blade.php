@@ -41,7 +41,7 @@ THE SOFTWARE.-->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <script>
 
-          var base_url = '{{ url('/') }}'; <?php?>
+          var base_url = '{{ url('/') }}'; 
 
         </script>
     </head>
