@@ -41,7 +41,7 @@ THE SOFTWARE.-->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <script>
 
-          var base_url = '{{ url('/') }}';
+          var base_url = '{{ url('/') }}'; <?php?>
 
         </script>
     </head>
@@ -130,7 +130,7 @@ THE SOFTWARE.-->
 
         @yield('content')
 
-        
+
 
               <hr>
 
