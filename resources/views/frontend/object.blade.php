@@ -38,7 +38,7 @@
 
             <ul class="list-inline">
                 @foreach($object->users as $user)
-                <li><a href="{{ route('person',['id'=>$user->id]) }}"><img title="{{ $user->FullName }}" class="media-object img-responsive" width="100" height="200" src="{{ $user->photos->first()->path ?? $placeholder }}" alt="..."> </a></li>
+                <li><a href="{{ route('person',['id'=>$user->id]) }}"><img title="{{ $user->FullName }}" class="media-object img-responsive" width="200" height="500" src="{{ $user->photos->first()->path ?? $placeholder }}" alt="..."> </a></li>
 
            @endforeach
             </ul>
