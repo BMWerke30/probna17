@@ -3,7 +3,7 @@
 @section('content')
 
 
-@if( $object ?? false ) 
+@if( $object ?? false ) <?php ?>
 <h2>Edytowanie obiektu {{ $object->name }}</h2>
 @else
 <h2>Dodawanie nowego obiektu</h2>
