@@ -7,6 +7,7 @@ use App\Events\ReservationConfirmedEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Notification;
+use Illuminate\Support\Facades\Cache;
 
 class ReservationConfirmedListener
 {
@@ -43,10 +44,8 @@ class ReservationConfirmedListener
             ]);
 
 
-        $memcache = new \Memcached();
 
-        $memcache->addServer('localhost', 11211) or die("Could not connect");
 
-        $memcache->set('userid_' . $id. '_notification_timestamp',time());
+        Cache::put('userid_' . $id. '_notification_timestamp',time());
     }
 }

@@ -2,11 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\City;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Faker\Factory as Faker;
 
 class CitiesTableSeeder extends Seeder
 {
@@ -17,16 +14,8 @@ class CitiesTableSeeder extends Seeder
      */
     public function run()
     {
-      $faker = Faker::create('pl_PL');
-
-      for($i=1;$i<=10;$i++)
-      {
-          DB::table('cities')->insert([
-         'name' => $faker->unique()->city,
-
-          ]);
-      }
-
-
+        City::factory()
+            ->count(10)
+            ->create();
     }
 }

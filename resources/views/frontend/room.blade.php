@@ -88,7 +88,7 @@ function datesBetween(startDt, endDt) {
     var end = new Date(endDt);
     while (currentDate <= end)
     {
-        between.push( $.datepicker.formatDate('mm/dd/yy',new Date(currentDate)) );
+        between.push( $.datepicker.formatDate('yy-mm-dd',new Date(currentDate)) );
         currentDate.setDate(currentDate.getDate() + 1);
     }
 
@@ -129,10 +129,8 @@ $.ajax({
 
         $(function () {
             $("#avaiability_calendar").datepicker({
+                dateFormat: 'yy-mm-dd',
                 onSelect: function (data) {
-
-        //            console.log($('#checkin').val());
-
                     if ($('#checkin').val() == '')
                     {
                         $('#checkin').val(data);
@@ -148,8 +146,7 @@ $.ajax({
                 },
                 beforeShowDay: function (date)
                 {
-                    var tmp =  eventDates[$.datepicker.formatDate('mm/dd/yy', date)]; /* Lecture 21 */
-                    //console.log(date);
+                    var tmp =  eventDates[$.datepicker.formatDate('yy-mm-dd', date)]; /* Lecture 21 */
                     if (tmp)
                         return [false, 'unavaiable_date'];
                     else

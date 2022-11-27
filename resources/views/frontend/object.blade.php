@@ -54,9 +54,9 @@
     @auth
 
       @if( $object->isLiked() )
-     <a href="{{ route('unlike',['likeable_id'=>$object->id,'type'=>'App\TouristObject']) }}" class="btn btn-primary btn-xs top-buffer">Odlub ten obiekt</a>
+     <a href="{{ route('unlike',['likeable_id'=>$object->id,'type'=>'TouristObject']) }}" class="btn btn-primary btn-xs top-buffer">Odlub ten obiekt</a>
       @else
-         <a href="{{ route('like',['likeable_id'=>$object->id,'type'=>'App\TouristObject']) }}" class="btn btn-primary btn-xs top-buffer">Polub ten obiekt</a>
+         <a href="{{ route('like',['likeable_id'=>$object->id,'type'=>'TouristObject']) }}" class="btn btn-primary btn-xs top-buffer">Polub ten obiekt</a>
       @endif
 
   @else
@@ -132,7 +132,7 @@
         <div class="well">
 
 
-            <form method="POST" action="{{ route('addComment',['commentable_id'=>$object->id, 'App\TouristObject']) }}" class="form-horizontal">
+            <form method="POST" action="{{ route('addComment',['commentable_id'=>$object->id, 'TouristObject']) }}" class="form-horizontal">
                 <fieldset>
                     <div class="form-group">
                         <label for="textArea" class="col-lg-2 control-label">Skomentuj</label>

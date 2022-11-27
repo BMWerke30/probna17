@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -13,7 +13,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
     use Rezervado\Presenters\UserPresenter;
 
-      public static $roles = [];
+    public static $roles = [];
 
     /**
      * The attributes that are mass assignable.
@@ -48,60 +48,31 @@ class User extends Authenticatable
 
     public function objects()
     {
-        return $this->morphedByMany('App\TouristObject','likeable');
-
+        return $this->morphedByMany('App\TouristObject', 'likeable');
     }
 
-    public function photos()
+    public function photos(): MorphMany
     {
-        return $this->morphMany('App\Photo','photoable');
+        return $this->morphMany(Photo::class, 'photoable');
     }
 
     public function comments()
     {
-      return $this->hasMany('App\Comment');
+        return $this->hasMany('App\Comment');
     }
 
-    public function larticles()
-        {
-            return $this->morphedByMany('App\Article', 'likeable');
-        }
+    public function unotifications()
+    {
+        return $this->hasMany('App\Notification');
+    }
 
-        public function unotifications()
-  {
-      return $this->hasMany('App\Notification');
-  }
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
 
-
-  public function roles()
-  {
-      return $this->belongsToMany('App\Role');
-  }
-
-
-  
-  public function hasRole(array $roles)
-  {
-
-      foreach($roles as $role)
-      {
-
-          if(isset(self::$roles[$role]))
-          {
-              if(self::$roles[$role])  return true;
-
-          }
-          else
-          {
-              self::$roles[$role] = $this->roles()->where('name', $role)->exists();
-              if(self::$roles[$role]) return true;
-          }
-
-      }
-
-
-      return false;
-
-  }
-
+    public function hasRole(array $roles): bool
+    {
+        return $this->roles->whereIn('name', $roles)->isNotEmpty();
+    }
 }

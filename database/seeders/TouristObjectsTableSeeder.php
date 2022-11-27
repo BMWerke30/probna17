@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Address;
+use App\Reservation;
+use App\Room;
+use App\TouristObject;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Faker\Factory as Faker;
 
 class TouristObjectsTableSeeder extends Seeder
 {
@@ -17,17 +17,17 @@ class TouristObjectsTableSeeder extends Seeder
      */
     public function run()
     {
-          $faker = Faker::create('pl_PL');
-
-       for($i=1;$i<=10;$i++)
-       {
-              DB::table('objects')->insert([
-             'name' => $faker->unique()->word,
-             'description' => $faker->text(1000),
-             'user_id' => $faker->numberBetween(1,10),
-             'city_id' => $faker->numberBetween(1,10),
-
-         ]);
-       }
+        TouristObject::factory()
+            ->count(10)
+            ->has(
+                Room::factory()
+                    ->count(rand(1, 5))
+                    ->has(Reservation::factory()),
+                'rooms'
+            )
+            ->create()
+            ->each(function (TouristObject $object) {
+                $object->address()->save(Address::factory()->make());
+            });
     }
 }

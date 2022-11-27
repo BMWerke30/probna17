@@ -39,7 +39,7 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6">
                     <div class="thumbnail">
-                        <img class="img-responsive" src="{{ $user->photos->first()->path ?? $placeholder }}" alt="...">
+                        <img class="img-responsive" src="{{ $user->photos->first()->storagePath ?? $placeholder }}" alt="...">
                         <div class="caption">
                             <p><a href="{{ route('deletePhoto',['id'=>$user->photos->first()->id]) }}" class="btn btn-primary btn-xs" role="button">Usuń</a></p>
                         </div>

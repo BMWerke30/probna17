@@ -19,7 +19,7 @@
                 <div class="col-md-3 col-sm-6">
 
                     <div class="thumbnail">
-                        <img class="img-responsive" src="{{ $object->photos[1]->path ?? $placeholder }}" alt="...">
+                        <img class="img-responsive" src="{{ $object->photos->first()->storagePath ?? $placeholder }}" alt="..."> 
                         <div class="caption">
                             <h3>{{ $object->name }} <small>{{ $object->city->name}}</small> </h3>
                             <p>{{ \Illuminate\Support\Str::limit($object->description,100) }}</p>

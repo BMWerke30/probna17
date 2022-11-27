@@ -1,1 +1,209 @@
-(()=>{var t=function(t,i){var a=arguments.length>2&&void 0!==arguments[2]?arguments[2]:null,o=arguments.length>3&&void 0!==arguments[3]?arguments[3]:null;$.ajax({cache:!1,url:base_url+"/"+t,type:"GET",data:a,success:function(t){n[i](t)},beforeSend:function(){o&&n[o]()}})},i=function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},i=arguments.length>1?arguments[1]:void 0,a=arguments.length>2&&void 0!==arguments[2]?arguments[2]:null;$.ajax({cache:!1,url:base_url+"/"+i,type:"GET",dataType:"json",data:t,success:function(t){a&&n[a](t)}})},n={timestamp:null,idsOfNotShownNotifications:[],GetReservationData:function(i,a,o){n.calendar_id=a,t("ajaxGetReservationData?fromWebApp=1","AfterGetReservationData",{room_id:i,date:o},"BeforeGetReservationData")},BeforeGetReservationData:function(){$(".loader_"+n.calendar_id).hide(),$(".hidden_"+n.calendar_id).show()},AfterGetReservationData:function(t){$(".hidden_"+n.calendar_id+" .reservation_data_room_number").html(t.room_number),$(".hidden_"+n.calendar_id+" .reservation_data_day_in").html(t.day_in),$(".hidden_"+n.calendar_id+" .reservation_data_day_out").html(t.day_out),$(".hidden_"+n.calendar_id+" .reservation_data_person").html(t.FullName),$(".hidden_"+n.calendar_id+" .reservation_data_person").attr("href",t.userLink),$(".hidden_"+n.calendar_id+" .reservation_data_delete_reservation").attr("href",t.deleteResLink),t.status?($(".hidden_"+n.calendar_id+" .reservation_data_confirm_reservation").removeAttr("href"),$(".hidden_"+n.calendar_id+" .reservation_data_confirm_reservation").attr("disabled","disabled")):$(".hidden_"+n.calendar_id+" .reservation_data_confirm_reservation").attr("href",t.confirmResLink)},SetReadNotification:function(t){i({id:t},"ajaxSetReadNotification?fromWebApp=1")},GetNotShownNotifications:function(){t("ajaxGetNotShownNotifications?fromWebApp=1&timestamp="+n.timestamp,"AfterGetNotShownNotifications")},AfterGetNotShownNotifications:function(t){var i=JSON.parse(t);if(n.timestamp=i.timestamp,setTimeout(n.GetNotShownNotifications(),100),!jQuery.isEmptyObject(i.notifications)){$("#app-notifications-count").show(),$("#app-notifications-count").removeClass("hidden");for(var a=0;a<=i.notifications.length-1;a++)n.idsOfNotShownNotifications.push(i.notifications[a].id),$("#app-notifications-count").html(parseInt($("#app-notifications-count").html())+1),$("#app-notifications-list").append('<li class="unread_notification"><a href="'+i.notifications[a].id+'">'+i.notifications[a].content+"</a></li>");n.SetShownNotifications(n.idsOfNotShownNotifications)}},SetShownNotifications:function(t){i({idsOfNotShownNotifications:t},"ajaxSetShownNotifications?fromWebApp=1")}};$(document).on("click",".dropdown",(function(t){t.stopPropagation()})),$(document).on("click",".unread_notification",(function(t){t.preventDefault(),$(this).removeClass("unread_notification");var i=parseInt($("#app-notifications-count").html());i>0&&($("#app-notifications-count").html(i-1),1==i&&$("#app-notifications-count").hide());var a=$(this).children().attr("href");$(this).children().removeAttr("href"),n.SetReadNotification(a)})),$((function(){n.GetNotShownNotifications()}))})();
+
+function datesBetween(startDt, endDt) {
+    var between = [];
+    var currentDate = new Date(startDt);
+    var end = new Date(endDt);
+    while (currentDate <= end) {
+        between.push( $.datepicker.formatDate('mm/dd/yy',new Date(currentDate)) );
+        currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    return between;
+}
+
+
+
+
+var Ajax = {
+
+    get: function (url, success, data = null, beforeSend = null) {
+
+        $.ajax({
+
+            cache: false,
+            url: base_url + '/' + url,
+            type: "GET",
+            data: data,
+            success: function(response){
+
+            App[success](response);
+
+            },
+            beforeSend: function(){
+
+            if(beforeSend)
+            App[beforeSend]();
+
+            }
+
+        });
+    },
+
+
+
+    set: function (data = {}, url, success = null) {
+
+        $.ajax({
+
+            cache: false,
+            url: base_url + '/' + url,
+            type: "GET",
+            dataType: "json",
+            data: data,
+            success: function(response){
+
+            if(success)
+            App[success](response);
+
+            }
+
+        });
+    }
+
+
+};
+
+
+var App = {
+
+    timestamp: null,
+
+    idsOfNotShownNotifications: [],
+
+
+    GetReservationData: function (id, calendar_id, date) {
+
+        App.calendar_id = calendar_id;
+        Ajax.get('ajaxGetReservationData?fromWebApp=1', 'AfterGetReservationData',{room_id: id, date: date},'BeforeGetReservationData');
+
+
+    },
+    BeforeGetReservationData: function() {
+
+
+    $('.loader_' + App.calendar_id).hide();
+    $('.hidden_' + App.calendar_id).show();
+
+
+    },
+    AfterGetReservationData: function(response) {
+
+
+        $('.hidden_' + App.calendar_id + " .reservation_data_room_number").html(response.room_number); /* Lecture 32 */
+
+        $('.hidden_' + App.calendar_id + " .reservation_data_day_in").html(response.day_in); /* Lecture 33 */
+        $('.hidden_' + App.calendar_id + " .reservation_data_day_out").html(response.day_out); /* Lecture 33 */
+        $('.hidden_' + App.calendar_id + " .reservation_data_person").html(response.FullName); /* Lecture 33 */
+        $('.hidden_' + App.calendar_id + " .reservation_data_person").attr('href', response.userLink); /* Lecture 33 */
+        $('.hidden_' + App.calendar_id + " .reservation_data_delete_reservation").attr('href', response.deleteResLink); /* Lecture 33 */
+
+
+        if (response.status)
+        {
+            $('.hidden_' + App.calendar_id + " .reservation_data_confirm_reservation").removeAttr('href');
+            $('.hidden_' + App.calendar_id + " .reservation_data_confirm_reservation").attr('disabled', 'disabled');
+
+        } else
+        {
+            $('.hidden_' + App.calendar_id + " .reservation_data_confirm_reservation").attr('href', response.confirmResLink);
+        }
+
+
+    },
+
+
+    SetReadNotification: function (id) {
+
+        Ajax.set({id: id}, 'ajaxSetReadNotification?fromWebApp=1');
+    },
+
+
+
+    GetNotShownNotifications: function() {
+
+
+        Ajax.get("ajaxGetNotShownNotifications?fromWebApp=1&timestamp=" + App.timestamp, 'AfterGetNotShownNotifications');
+
+    },
+
+
+    AfterGetNotShownNotifications: function(response) {
+
+        var json = JSON.parse(response);
+
+        App.timestamp = json['timestamp'];
+        setTimeout(App.GetNotShownNotifications(), 100);
+
+
+
+        if (jQuery.isEmptyObject(json['notifications']))
+            return;
+
+
+        $('#app-notifications-count').show();
+        $('#app-notifications-count').removeClass('hidden');
+
+
+
+        for (var i = 0; i <= json['notifications'].length - 1; i++)
+        {
+            App.idsOfNotShownNotifications.push(json['notifications'][i].id);
+
+            $('#app-notifications-count').html(parseInt($('#app-notifications-count').html()) + 1);
+            $("#app-notifications-list").append('<li class="unread_notification"><a href="' + json['notifications'][i].id + '">' + json['notifications'][i].content + '</a></li>');
+        }
+
+
+        App.SetShownNotifications(App.idsOfNotShownNotifications);
+
+
+    },
+
+
+
+    SetShownNotifications: function (ids) {
+
+        Ajax.set({idsOfNotShownNotifications: ids}, 'ajaxSetShownNotifications?fromWebApp=1');
+
+    }
+
+
+};
+
+
+
+$(document).on('click', '.dropdown', function (e) {
+    e.stopPropagation();
+});
+
+
+
+$(document).on("click", ".unread_notification", function (event) {
+
+    event.preventDefault();
+
+    $(this).removeClass('unread_notification');
+
+    var ncount = parseInt($('#app-notifications-count').html());
+
+    if (ncount > 0)
+    {
+        $('#app-notifications-count').html(ncount - 1);
+
+        if (ncount == 1)
+        $('#app-notifications-count').hide();
+    }
+
+    var idOfNotification = $(this).children().attr('href');
+    $(this).children().removeAttr('href');
+    App.SetReadNotification(idOfNotification);
+
+});
+
+
+
+$(function () {
+
+App.GetNotShownNotifications();
+
+});

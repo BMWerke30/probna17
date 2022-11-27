@@ -33,14 +33,14 @@ trait Ajax {
     }
 
 
-    
+
     public function ajaxGetNotShownNotifications(Request $request)
     {
 
         $currentmodif = $this->bG->checkNotificationsStatus($request);
 
         // executed if while loop ends
-        $response['notifications'] = $this->bR->getUserNotifications($request->user()->id); /* Lecture 52 */
+        $response['notifications'] = $this->bR->getUserNotifications($request->user()->id); 
         $response['timestamp'] = $currentmodif;
 
         return json_encode($response);

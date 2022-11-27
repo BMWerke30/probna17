@@ -2,6 +2,8 @@
 namespace App\Rezervado\Gateways;
 
 use App\Rezervado\Interfaces\BackendRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Cache;
 
 
 
@@ -20,19 +22,17 @@ class BackendGateway {
 
     public function getReservations($request)
     {
-        if ($request->user()->hasRole(['owner','admin']))
+        if ($request->user()->hasRole(['owner']))
         {
-
-            $objects = $this->bR->getOwnerReservations($request);
-
-        }
-        else
-        {
-
-            $objects = $this->bR->getTouristReservations($request);
+            return $this->bR->getOwnerReservations($request);
         }
 
-        return $objects;
+        if ($request->user()->hasRole(['tourist']))
+        {
+            return $this->bR->getTouristReservations($request);
+        }
+
+        return new Collection();
     }
 
 
@@ -178,16 +178,15 @@ class BackendGateway {
 
 
 
+
+
     public function checkNotificationsStatus($request)
     {
 
         set_time_limit(0);
 
-        $memcache = new \Memcached();
 
-        $memcache->addServer('localhost', 11211) or die("Could not connect");
-
-        $currentmodif = (int) $memcache->get('userid_' . $request->user()->id . '_notification_timestamp');
+        $currentmodif = (int) Cache::get('userid_' . $request->user()->id . '_notification_timestamp');
 
         $lastmodif = $request->input('timestamp') ?? 0;
 
@@ -199,14 +198,14 @@ class BackendGateway {
         while ($currentmodif <= $lastmodif)
         {
 
-            if ( (microtime(true) - $start) > 10) 
+            if ( (microtime(true) - $start) > 10)
             {
                 return json_encode($response);
             }
 
 
             sleep(0.1);
-            $currentmodif = (int) $memcache->get('userid_' . $request->user()->id . '_notification_timestamp');
+            $currentmodif = (int) Cache::get('userid_' . $request->user()->id . '_notification_timestamp');
         }
 
 
