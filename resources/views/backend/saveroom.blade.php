@@ -55,7 +55,7 @@
 
                         <div class="col-md-3 col-sm-6">
                             <div class="thumbnail">
-                                <img class="img-responsive" src="{{ $photo->path ?? $placeholder }}" alt="...">
+                                <img class="img-responsive" src="{{ $photo->storagePath ?? $placeholder }}" alt="...">
                                 <div class="caption">
                                     <p><a href="{{ route('deletePhoto',['id'=>$photo->id])  }}" class="btn btn-primary btn-xs" role="button">Usuń</a></p>
                                 </div>

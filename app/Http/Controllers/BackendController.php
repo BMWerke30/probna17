@@ -27,6 +27,7 @@ class BackendController extends Controller
     public function index(Request $request)
     {
         $objects = $this->bG->getReservations($request);
+
         return view('backend.index', ['objects' => $objects]);
     }
 

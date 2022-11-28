@@ -9,6 +9,6 @@ class TouristRegisterStrategy extends DefaultRegisterStrategy implements Registe
 {
     public function attachRoleToUser(User $user): void
     {
-        $this->attach($user, Role::TOURIST);
+        $this->attach($user, [Role::TOURIST]);
     }
 }

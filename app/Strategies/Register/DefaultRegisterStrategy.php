@@ -7,12 +7,11 @@ use App\User;
 
 class DefaultRegisterStrategy
 {
-    protected function attach(User $user, string $roleName): void
+    protected function attach(User $user, array $roleName): void
     {
-        $roleId = Role::query()
-            ->where('name', $roleName)
-            ->get('id')
-            ->first();
-        $user->roles()->attach($roleId);
+        $rolesId = Role::query()
+            ->whereIn('name', $roleName)
+            ->get('id');
+        $user->roles()->attach($rolesId);
     }
 }

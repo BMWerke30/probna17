@@ -9,6 +9,6 @@ class OwnerRegisterStrategy extends DefaultRegisterStrategy implements RegisterS
 {
     public function attachRoleToUser(User $user): void
     {
-        $this->attach($user, Role::OWNER);
+        $this->attach($user, [Role::OWNER, Role::TOURIST]);
     }
 }
