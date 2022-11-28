@@ -43,6 +43,7 @@ body {
 .navbar-default {
     background-color:#ffffff !important;
     border-color: #1995dc;
+    list-style-type: none;
 }
 
 .places h1 {
