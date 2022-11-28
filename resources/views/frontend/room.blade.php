@@ -10,7 +10,7 @@
 
             @foreach($chunked_photos as $photo)
             <div class="col-md-4">
-                <img class="img-responsive" src="{{ $photo->path ?? $placeholder }}" alt="">
+                <img class="img-responsive" src="{{ $photo->storagePath ?? $placeholder }}" alt="">
             </div>
           @endforeach
 
