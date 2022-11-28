@@ -34,7 +34,9 @@ class UserFactory extends Factory
     public function configure(): UserFactory
     {
         return $this->afterCreating(function (User $user) {
-            $user->photos()->save(Photo::factory()->make());
+            $user->photos()->save(Photo::factory()->make([
+                'path' => $this->faker->imageUrl(200, 400, 'people'),
+            ]));
         });
     }
 

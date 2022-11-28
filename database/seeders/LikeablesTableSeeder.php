@@ -2,11 +2,9 @@
 
 namespace Database\Seeders;
 
+use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Faker\Factory as Faker;
 
 class LikeablesTableSeeder extends Seeder
 {
@@ -17,17 +15,14 @@ class LikeablesTableSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Faker::create('pl_PL');
 
-      $faker = Faker::create('pl_PL');
-
-       for($i=1;$i<=40;$i++)
-       {
-         DB::table('likeables')->insert([
-          'likeable_type' => $faker->randomElement(['App\TouristObject', 'App\Article']),   // tutaj bylo z App/ ale zobaczymy
-          'likeable_id' => $faker->numberBetween(1,10),
-          'user_id' => $faker->numberBetween(1,10),
-           ]);
-      }
-
+        for ($i = 1; $i <= 40; $i++) {
+            DB::table('likeables')->insert([
+                'likeable_type' => $faker->randomElement(['App\TouristObject']),
+                'likeable_id' => $faker->numberBetween(1, 10),
+                'user_id' => $faker->numberBetween(1, 10),
+            ]);
+        }
     }
 }

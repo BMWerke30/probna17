@@ -2,11 +2,10 @@
 
 namespace App\Policies;
 
-use App\{User,TouristObject};
+use App\{TouristObject, User};
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 
- 
 class ObjectPolicy
 {
     use HandlesAuthorization;
@@ -21,8 +20,7 @@ class ObjectPolicy
         //
     }
 
-
-    public function checkOwner(User $user, TouristObject $object)
+    public function checkOwner(User $user, TouristObject $object): bool
     {
         return $user->id === $object->user_id;
     }

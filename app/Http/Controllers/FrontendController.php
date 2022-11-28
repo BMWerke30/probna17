@@ -27,14 +27,6 @@ class FrontendController extends Controller
         return view('frontend.index', ['objects' => $objects]);
     }
 
-
-    public function article($id)
-    {
-        $article = $this->fR->getArticle($id);
-        return view('frontend.article', compact('article'));
-    }
-
-
     public function object($id)
     {
         $object = $this->fR->getObject($id);
@@ -44,6 +36,7 @@ class FrontendController extends Controller
 
     public function person($id)
     {
+
         $user = $this->fR->getPerson($id);
         return view('frontend.person', ['user' => $user]);
     }

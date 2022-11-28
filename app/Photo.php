@@ -32,3 +32,5 @@ class Photo extends Model
         return '/storage/' . $this->path;
     }
 }
+
+

@@ -77,7 +77,7 @@ class BackendController extends Controller
     }
 
 
-    public function saveobject($id = null, Request $request)
+    public function saveObject($id = null, Request $request)
     {
         if ($request->isMethod('post')) {
             if ($id) {
@@ -178,34 +178,6 @@ class BackendController extends Controller
             return redirect()->back();
         }
     }
-
-
-    public function deleteArticle($id)
-    {
-        $article = $this->bR->getArticle($id);
-
-        $this->authorize('checkOwner', $article);
-
-        $this->bR->deleteArticle($article);
-
-        return redirect()->back();
-    }
-
-
-    public function saveArticle($object_id = null, Request $request)
-    {
-        if (!$object_id) {
-            $this->flashMsg('danger', __('First add an object'));
-            return redirect()->back();
-        }
-
-        $this->authorize('checkOwner', $this->bR->getObject($object_id));
-
-        $this->bG->saveArticle($object_id, $request);
-
-        return redirect()->back();
-    }
-
 
     public function deleteObject($id)
     {

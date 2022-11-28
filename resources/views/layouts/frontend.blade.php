@@ -41,7 +41,7 @@ THE SOFTWARE.-->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <script>
 
-          var base_url = '{{ url('/') }}'; 
+          var base_url = '{{ url('/') }}';
 
         </script>
     </head>
@@ -93,7 +93,12 @@ THE SOFTWARE.-->
                 <form method="POST" action="{{ route('roomSearch') }}" class="form-inline">
                     <div class="form-group">
                         <label class="sr-only" for="city">Miasto</label>
-                        <input name="city" value="{{ old('city') }}" type="text" class="form-control autocomplete" id="city" placeholder="Miasto">
+                        <select name="city" class="form-control">
+                            <option>Wybierz miasto</option>
+                            @foreach($cityList as $city)
+                            <option {{ old('city')!= '' && old('city') == $city->name ? 'selected' : '' }}value="{{ $city->name }}">{{ $city->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label class="sr-only" for="day_in">Przyjazd</label>
