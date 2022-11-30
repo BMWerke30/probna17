@@ -19,12 +19,12 @@ class CreatePhotosTable extends Migration
     public function up()
     {
         Schema::create('photos', function (Blueprint $table) {
-            
+
             $table->bigIncrements('id');
-            $table->string('photoable_type'); /* Lecture 8 */
-            $table->bigInteger('photoable_id'); /* Lecture 8 */
-            $table->string('path'); /* Lecture 8 */
-            
+            $table->string('photoable_type');
+            $table->bigInteger('photoable_id');
+            $table->string('path');
+
         });
     }
 

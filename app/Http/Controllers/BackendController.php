@@ -145,7 +145,6 @@ class BackendController extends Controller
         return redirect()->back();
     }
 
-
     public function confirmReservation($id)
     {
         $reservation = $this->bR->getReservation($id);
@@ -163,7 +162,6 @@ class BackendController extends Controller
         }
         return true;
     }
-
 
     public function deleteReservation($id)
     {
@@ -194,8 +192,6 @@ class BackendController extends Controller
         return response()->json($this->bR->getNotifications()); // for mobile
     }
 
-
-    /* Lecture 53 */
     public function setReadNotifications(Request $request)
     {
         return $this->bR->setReadNotifications($request); // for mobile

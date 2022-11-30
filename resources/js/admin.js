@@ -89,13 +89,13 @@ var App = {
     AfterGetReservationData: function(response) {
 
 
-        $('.hidden_' + App.calendar_id + " .reservation_data_room_number").html(response.room_number); /* Lecture 32 */
+        $('.hidden_' + App.calendar_id + " .reservation_data_room_number").html(response.room_number);
 
-        $('.hidden_' + App.calendar_id + " .reservation_data_day_in").html(response.day_in); /* Lecture 33 */
-        $('.hidden_' + App.calendar_id + " .reservation_data_day_out").html(response.day_out); /* Lecture 33 */
-        $('.hidden_' + App.calendar_id + " .reservation_data_person").html(response.FullName); /* Lecture 33 */
-        $('.hidden_' + App.calendar_id + " .reservation_data_person").attr('href', response.userLink); /* Lecture 33 */
-        $('.hidden_' + App.calendar_id + " .reservation_data_delete_reservation").attr('href', response.deleteResLink); /* Lecture 33 */
+        $('.hidden_' + App.calendar_id + " .reservation_data_day_in").html(response.day_in);
+        $('.hidden_' + App.calendar_id + " .reservation_data_day_out").html(response.day_out);
+        $('.hidden_' + App.calendar_id + " .reservation_data_person").html(response.FullName);
+        $('.hidden_' + App.calendar_id + " .reservation_data_person").attr('href', response.userLink);
+        $('.hidden_' + App.calendar_id + " .reservation_data_delete_reservation").attr('href', response.deleteResLink);
 
 
         if (response.status)

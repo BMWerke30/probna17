@@ -40,7 +40,7 @@ class FrontendGateway
             $result = $this->fR->getSearchResults($request->input('city'));
 
             if ($result) {
-                /* Lecture 19 */
+
                 foreach ($result->rooms as $k => $room) {
                     if ((int)$request->input('room_size') > 0) {
                         if ($room->room_size != $request->input('room_size')) {

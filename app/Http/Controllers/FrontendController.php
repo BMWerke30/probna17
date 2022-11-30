@@ -87,7 +87,6 @@ class FrontendController extends Controller
     }
 
 
-    /* Lecture 24 */
     public function unlike($likeable_id, $type, Request $request)
     {
         $this->fR->unlike($likeable_id, $type, $request);

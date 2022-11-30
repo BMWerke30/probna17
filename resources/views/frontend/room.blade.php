@@ -76,12 +76,12 @@
 
 @endsection
 
-@push('scripts') <!-- Lecture 20 -->
+@push('scripts')
 
-<!-- Lecture 20 -->
+
 <script>
 
-/* Lecture 21 */
+
 function datesBetween(startDt, endDt) {
     var between = [];
     var currentDate = new Date(startDt);
@@ -104,9 +104,9 @@ $.ajax({
 
 
         var eventDates = {};
-        var dates = [/* Lecture 21 */];
+        var dates = [];
 
-        /* Lecture 21 */
+
         for(var i = 0; i <= response.reservations.length - 1; i++)
         {
             dates.push(datesBetween(new Date(response.reservations[i].day_in), new Date(response.reservations[i].day_out))); // array of arrays
@@ -118,9 +118,8 @@ $.ajax({
             x = a.concat(b);
             x = [1,2];
             [ [1],[2],[3] ] => [1,2,3]  */
-        dates = [].concat.apply([], dates); /* Lecture 21 */   // flattened array
+        dates = [].concat.apply([], dates);    // flattened array
 
-        /* Lecture 21 */
         for (var i = 0; i <= dates.length - 1; i++)
         {
             eventDates[dates[i]] = dates[i];
@@ -146,7 +145,7 @@ $.ajax({
                 },
                 beforeShowDay: function (date)
                 {
-                    var tmp =  eventDates[$.datepicker.formatDate('yy-mm-dd', date)]; /* Lecture 21 */
+                    var tmp =  eventDates[$.datepicker.formatDate('yy-mm-dd', date)];
                     if (tmp)
                         return [false, 'unavaiable_date'];
                     else
@@ -167,4 +166,4 @@ $.ajax({
 
 </script>
 
-@endpush <!-- Lecture 20 -->
+@endpush

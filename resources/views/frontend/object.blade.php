@@ -43,7 +43,6 @@
            @endforeach
             </ul>
 
-<!-- tu trzeba cos pozmieniac i to znalezc -->
         </div>
         <div class="tab-pane fade" id="adress">
             <p>{{ $object->address->street }} {{ $object->address->number }}</p>
@@ -144,7 +143,7 @@
 
                     <div class="form-group">
                         <label for="select" class="col-lg-2 control-label">Oceń</label>
-                        <!-- sprawdzić czy ocen czy jakos inaczej -->
+
                         <div class="col-lg-10">
                             <select name="rating" class="form-control" id="select">
                                 <option value="5">5</option>

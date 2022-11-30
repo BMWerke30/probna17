@@ -21,14 +21,14 @@ class CreateRoomsTable extends Migration
         Schema::create('rooms', function (Blueprint $table) {
 
             $table->bigIncrements('id');
-            $table->integer('room_number'); /* Lecture 9 */
-            $table->integer('room_size'); /* Lecture 9 */
-            $table->integer('price'); /* Lecture 9 */
-            $table->text('description'); /* Lecture 9 */
-            $table->bigInteger('object_id')->unsigned(); /* Lecture 9 */
-            $table->foreign('object_id')->references('id')->on('objects')->onDelete('cascade'); /* Lecture 9 */
-            
-   
+            $table->integer('room_number');
+            $table->integer('room_size');
+            $table->integer('price');
+            $table->text('description');
+            $table->bigInteger('object_id')->unsigned();
+            $table->foreign('object_id')->references('id')->on('objects')->onDelete('cascade');
+
+
         });
     }
 
